@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     const data = await page.evaluate(() => {
       const title = document.querySelector('meta[property="og:title"]')?.content || '';
       const image = document.querySelector('meta[property="og:image"]')?.content || '';
-      const priceEl = document.querySelector('.pmmxKx');
+      const priceEl = document.querySelector('.pmmxKx'); // giá nằm trong class này
       const price = priceEl?.textContent.replace(/[^\d]/g, '') || null;
       return { title, image, price };
     });
