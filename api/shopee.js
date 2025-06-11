@@ -17,12 +17,13 @@ export default async function handler(req, res) {
 
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
+
     await page.waitForSelector('meta[property="og:title"]', { timeout: 10000 });
 
     const data = await page.evaluate(() => {
       const title = document.querySelector('meta[property="og:title"]')?.content || '';
       const image = document.querySelector('meta[property="og:image"]')?.content || '';
-      const priceEl = document.querySelector('.pmmxKx'); // giá nằm trong class này
+      const priceEl = document.querySelector('.pmmxKx'); // class này là giá, có thể thay đổi
       const price = priceEl?.textContent.replace(/[^\d]/g, '') || null;
       return { title, image, price };
     });
