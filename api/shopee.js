@@ -22,14 +22,14 @@ export default async function handler(req, res) {
     const data = await page.evaluate(() => {
       const title = document.querySelector('meta[property="og:title"]')?.content || '';
       const image = document.querySelector('meta[property="og:image"]')?.content || '';
-      const priceEl = document.querySelector('.pmmxKx'); // có thể đổi theo HTML thực tế
+      const priceEl = document.querySelector('.pmmxKx');
       const price = priceEl?.textContent.replace(/[^\d]/g, '') || null;
       return { title, image, price };
     });
 
     return res.status(200).json(data);
   } catch (err) {
-    console.error(err);
+    console.error('Shopee fetch error:', err);
     return res.status(500).json({ error: 'Fetch failed' });
   } finally {
     if (browser) await browser.close();
